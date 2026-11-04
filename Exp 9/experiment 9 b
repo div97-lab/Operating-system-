@@ -1,0 +1,53 @@
+Perfect, this is *Expt 9(b) - I/O Task + Memory Mapping* - the opposite of 9(a).
+
+### Extracted Text:
+
+*DATE: 19/10/26 EXP. No. 9(b)*
+*Expt 9(b) - I/O task Simulation and Memory Mapping*
+
+*Steps:* (i) Open the Ubuntu terminal.
+(ii) Create a C program using: `nano expt9b.c`
+(iii) Write a C program to stimulate an I/O task by writing data to a file repeatedly using `fopen()`, `fprintf()` and `fclose()`.
+(iv) Save the file using Ctrl+O, press Enter & then Ctrl+X
+(v) Compile using: `gcc expt9b.c -o expt9b`
+(vi) Execute using: `./expt9b`
+(vii) Observe the I/O task message displayed on the terminal.
+(viii) Press Ctrl+C to terminate
+(ix) Monitor system process & resource usage using: `top` (Ctrl+C)
+(x) Display the contents of the generated file using: `cat dummy.txt`
+(xi) Run the program again in the background & identify its process id using: `pgrep -a expt9b`
+(xii) Use the process ID obtained in the previous step to examine its memory mappings: `pmap -x PID`
+
+### What Code Was There?
+#include <stdio.h>
+int main() {
+    while(1) {
+        FILE *f = fopen("dummy.txt", "a");
+        fprintf(f, "Writing I/O data...\n");
+        fclose(f);
+    }
+}
+It keeps writing to a file - that's I/O work, not CPU work.
+
+### Viva for 9(b) - Remember This:
+
+*Q1. Difference between 9(a) and 9(b)?*
+> 9(a) = CPU busy with `while(1) counter++` - shows 99% CPU in `top`
+> 9(b) = I/O busy with file writing - shows very low %CPU, high wait
+
+*Q2. What are `fopen`, `fprintf`, `fclose`?*
+> For file handling. fopen = open file, fprintf = write, fclose = close.
+
+*Q3. What is `pgrep -a expt9b`?*
+> Finds Process ID (PID) of our running program.
+
+*Q4. What is `pmap -x PID`?*
+> Shows memory mapping of that process - how much memory it uses, its libraries. This is the "Memory Mapping" part of title.
+
+*Q5. What is `cat dummy.txt`?*
+> To see what was written in the file during I/O task.
+
+*Trick to Remember:*
+> If Sir asks "Which uses more CPU?" -> Say "9(a) uses more CPU, 9(b) uses more I/O and CPU is almost free."
+
+Send next experiment if you want - I will make same short viva notes for all.
